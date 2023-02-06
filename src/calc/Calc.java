@@ -60,9 +60,9 @@ public class Calc implements ActionListener {
   AbstractBorder rounded = new TextBubbleBorder(cNumbers,0,8,0);
   
   // Variables used for the back-end of the calculator
-  private double num1, num2, result = 0;
+  private double num1 = 0, num2 = 0, result = 0;
   private boolean dec = false;
-  private char operator;
+  private char operator = ' ';
   
   // CONSTRUCT
   public Calc() {
@@ -247,21 +247,24 @@ public class Calc implements ActionListener {
         case '/':
           result = num1 / num2;
           break;
+        case ' ':
+          break;
       }
 
       // Calculate the result and display it on the screen
       display.setText(String.valueOf(Math.round(result * 10000.0) / 10000.0));
       
-      // Set the decimal boolean to false (new number)
+      // Set decimal to false (new number) and num1 to 0
       dec = false;
-      
-      // Save the previous number to the result
-      num1 = result;
+      num1 = 0;
+      operator = ' ';
     }
     
     // Clear button
     if (e.getSource() == clrButton) {
       display.setText("");
+      num1 = 0;
+      result = 0;
       dec = false;
     }
     
@@ -276,7 +279,6 @@ public class Calc implements ActionListener {
     }
   }
 }
-
 
 // Class used for rounded borders
 // Author: Andrew Thompson (https://stackoverflow.com/users/418556/andrew-thompson)
